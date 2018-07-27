@@ -1,0 +1,10 @@
+[
+    {
+        "dependencies": [], 
+        "package": {
+            "installed_version": "6.7", 
+            "package_name": "click", 
+            "key": "click"
+        }
+    }
+]
