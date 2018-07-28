@@ -63,6 +63,10 @@ def parse_import_line(line: str) -> List[str]:
 
 
 def parse_file(file_path: str) -> List[str]:
+    """
+    Iterates through a given Python file looking for lines with `import`
+    statements
+    """
     imports: List[str] = []
 
     with open(file_path, 'r') as f:
@@ -75,6 +79,10 @@ def parse_file(file_path: str) -> List[str]:
 
 
 def get_imports(path: str, excludes: List[str]) -> List[str]:
+    """
+    Iterates through a Python project directory and parses each `.py`
+    file contained within (excluding those specified)
+    """
     imports: List[str] = []
 
     for root, dirs, files in os.walk(path, topdown=True):
@@ -88,6 +96,10 @@ def get_imports(path: str, excludes: List[str]) -> List[str]:
 
 
 def traverse_used(dependencies: List[str], graph: List[dict]) -> List[str]:
+    """
+    Recursively iterates through dependencies and subdependencies to ensure the
+    inclusion of all necessary packages
+    """
     for package in graph:
         if package["package"]["key"] in dependencies:
             sub_dependencies = [pkg["key"] for pkg in package["dependencies"]]
@@ -100,6 +112,9 @@ def traverse_used(dependencies: List[str], graph: List[dict]) -> List[str]:
 
 
 def determine_unused(modules: Dict[str, List[str]], imports: List[str], graph: List[dict]) -> List[str]:
+    """
+    Iterates through top-level requirements to determine which are never imported and returns that
+    """
     unused: List[str] = []
     used: List[str] = imports
 
